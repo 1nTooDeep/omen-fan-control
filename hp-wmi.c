@@ -699,7 +699,7 @@ struct victus_s_fan_table {
 #define KEEP_ALIVE_DELAY_SECS     90
 
 /* Safe fallback max RPM for boards that don't expose a fan table */
-#define OMEN_MAX_RPM 60
+#define OMEN_MAX_RPM 64
 
 static inline u8 rpm_to_pwm(u8 rpm, struct hp_wmi_hwmon_priv *priv)
 {
