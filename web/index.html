@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0b0f">
+<title>OMEN 风扇控制</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>
+      <svg class="app-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <defs>
+          <linearGradient id="icon-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff6a55"/>
+            <stop offset="1" stop-color="#e0301e"/>
+          </linearGradient>
+        </defs>
+        <rect width="24" height="24" rx="6.5" fill="url(#icon-grad)"/>
+        <path d="M 5.2 15.5 a 6.8 6.8 0 1 1 13.6 0" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/>
+        <line x1="12" y1="15.5" x2="16.2" y2="9.6" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/>
+        <circle cx="12" cy="15.5" r="1.7" fill="#fff"/>
+      </svg>
+      OMEN 风扇控制
+    </h1>
+    <span id="board-badge" class="badge">…</span>
+  </header>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <section class="cards">
+    <div class="card">
+      <div class="label">CPU</div>
+      <div class="big"><span id="cpu-temp">–</span><small>°C</small></div>
+      <div id="cores" class="cores"></div>
+    </div>
+    <div class="card">
+      <div class="label">GPU</div>
+      <div class="big"><span id="gpu-temp">–</span><small>°C</small></div>
+    </div>
+    <div class="card">
+      <div class="label">风扇 1</div>
+      <div class="big"><span id="fan1">–</span><small>RPM</small></div>
+    </div>
+    <div class="card">
+      <div class="label">风扇 2</div>
+      <div class="big"><span id="fan2">–</span><small>RPM</small></div>
+    </div>
+  </section>
+
+  <div id="hot-warning" class="warning" hidden>CPU 温度过高 — 此时不建议调低风扇转速</div>
+
+  <section class="card">
+    <div class="label">运行模式</div>
+    <div class="modes">
+      <button type="button" data-mode="auto">自动</button>
+      <button type="button" data-mode="max">全速</button>
+      <button type="button" data-mode="manual" id="btn-manual">手动</button>
+    </div>
+
+    <div id="manual-block">
+      <div class="slider-row">
+        <input type="range" id="slider" min="0" max="100" step="1" value="50" aria-label="风扇转速百分比">
+        <output id="slider-val">50%</output>
+      </div>
+      <div class="slider-hint">
+        PWM <span id="pwm-val">128</span> / 255 · 松开滑块立即生效 · 步进 1%
+      </div>
+      <div id="manual-note" class="slider-hint warn" hidden>手动模式需要补丁驱动：<code>sudo .venv/bin/python omen_cli.py install-patch temporary</code></div>
+    </div>
+  </section>
+
+  <footer>本机服务 127.0.0.1 · 恢复系统驱动：<code>sudo .venv/bin/python omen_cli.py install-patch restore</code></footer>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
